@@ -3,14 +3,14 @@ package com.vershasKitchen.payload;
 public class ImageDataResponse {
 
 	private String id;
-	private String imageURL;
+	private String imagePath;
 	private String name;
 	private String price;
 
-	public ImageDataResponse(String id, String imageURL, String name, String price) {
+	public ImageDataResponse(String id, String imagePath, String name, String price) {
 		super();
 		this.id = id;
-		this.imageURL = imageURL;
+		this.imagePath = imagePath;
 		this.setName(name);
 		this.setPrice(price);
 	}
@@ -23,12 +23,12 @@ public class ImageDataResponse {
 		this.id = id;
 	}
 
-	public String getImageURL() {
-		return imageURL;
+	public String getImagePath() {
+		return imagePath;
 	}
 
-	public void setImageURL(String imageURL) {
-		this.imageURL = imageURL;
+	public void setImagePath(String imageURL) {
+		this.imagePath = imageURL;
 	}
 
 	public String getName() {
