@@ -1,9 +1,7 @@
 package com.vershasKitchen.controller;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.vershasKitchen.Helper.ImageHelper;
 import com.vershasKitchen.entities.ImageDataBase;
 import com.vershasKitchen.payload.ImageDataResponse;
 import com.vershasKitchen.payload.ImageUploadResponse;
@@ -32,7 +29,7 @@ public class ImageController {
 	@Autowired
 	private ImageService imageService;
 
-	@PostMapping("api/uploadImage")
+	@PostMapping("/uploadImage")
 	public ImageUploadResponse uploadImage(@RequestParam("file") MultipartFile file,
 			@RequestParam("isPopular") Boolean isPopular,
 			@RequestParam("category") String category,
@@ -50,7 +47,7 @@ public class ImageController {
 	}
 
 
-	@GetMapping("api/downloadImage/{imageId}")
+	@GetMapping("/downloadImage/{imageId}")
 	public ResponseEntity<Resource> downloadFile(@PathVariable String imageId, HttpServletRequest request) {
 		// Load file as Resource
 		ImageDataBase image = imageService.getImage(imageId);
@@ -60,7 +57,7 @@ public class ImageController {
 				.body(new ByteArrayResource(image.getImageData()));
 	}
 
-	@GetMapping("api/getAllImageData")
+	@GetMapping("/getAllImageData")
 	public ResponseEntity<Map<String, List<ImageDataResponse>>> getAllImageData() {
 		Map<String, List<ImageDataResponse>> list = imageService.getAllImageData();
 		if (!list.isEmpty()) {
@@ -70,7 +67,7 @@ public class ImageController {
 		}
 	}
 	
-	@GetMapping("api/getAllPopularImageData")
+	@GetMapping("/getAllPopularImageData")
 	public ResponseEntity<Map<String, List<ImageDataResponse>>> getAllPopularImageData() {
 		Map<String, List<ImageDataResponse>> list = imageService.getAllPopularImageData();
 		if (!list.isEmpty()) {
