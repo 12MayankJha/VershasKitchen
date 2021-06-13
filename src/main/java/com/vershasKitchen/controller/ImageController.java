@@ -32,7 +32,7 @@ public class ImageController {
 	@Autowired
 	private ImageService imageService;
 
-	@PostMapping("/uploadImage")
+	@PostMapping("api/uploadImage")
 	public ImageUploadResponse uploadImage(@RequestParam("file") MultipartFile file,
 			@RequestParam("isPopular") Boolean isPopular,
 			@RequestParam("category") String category,
@@ -50,7 +50,7 @@ public class ImageController {
 	}
 
 
-	@GetMapping("/downloadImage/{imageId}")
+	@GetMapping("api/downloadImage/{imageId}")
 	public ResponseEntity<Resource> downloadFile(@PathVariable String imageId, HttpServletRequest request) {
 		// Load file as Resource
 		ImageDataBase image = imageService.getImage(imageId);
@@ -60,7 +60,7 @@ public class ImageController {
 				.body(new ByteArrayResource(image.getImageData()));
 	}
 
-	@GetMapping("/getAllImageData")
+	@GetMapping("api/getAllImageData")
 	public ResponseEntity<Map<String, List<ImageDataResponse>>> getAllImageData() {
 		Map<String, List<ImageDataResponse>> list = imageService.getAllImageData();
 		if (!list.isEmpty()) {
@@ -70,7 +70,7 @@ public class ImageController {
 		}
 	}
 	
-	@GetMapping("/getAllPopularImageData")
+	@GetMapping("api/getAllPopularImageData")
 	public ResponseEntity<Map<String, List<ImageDataResponse>>> getAllPopularImageData() {
 		Map<String, List<ImageDataResponse>> list = imageService.getAllPopularImageData();
 		if (!list.isEmpty()) {
