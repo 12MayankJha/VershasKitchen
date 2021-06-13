@@ -5,15 +5,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import com.vershasKitchen.Helper.ImageHelper;
 import com.vershasKitchen.dao.DatabaseFileRepository;
 import com.vershasKitchen.entities.ImageDataBase;
@@ -61,7 +58,7 @@ public class ImageServiceImpl implements ImageService {
 			List<ImageDataBase> imagefile = dbFileRepository.findByCategory(category);
 			List<ImageDataResponse> imageList = new  ArrayList<ImageDataResponse>();
 			for(ImageDataBase selectedFile: imagefile) {
-				String fileDownloadUri = "api/downloadImage/" + selectedFile.getId();
+				String fileDownloadUri = "/downloadImage/" + selectedFile.getId();
 				imageList.add(new ImageDataResponse(selectedFile.getId(), fileDownloadUri, selectedFile.getName(), selectedFile.getPrice()));
 			}
 			
@@ -80,7 +77,7 @@ public class ImageServiceImpl implements ImageService {
 			List<ImageDataResponse> imageList = new ArrayList<ImageDataResponse>();
 			for (ImageDataBase selectedFile : imagefile) {
 				if (selectedFile.getIsPopular()) {
-					String fileDownloadUri = "api/downloadImage/" + selectedFile.getId();
+					String fileDownloadUri = "/downloadImage/" + selectedFile.getId();
 					imageList.add(new ImageDataResponse(selectedFile.getId(), fileDownloadUri, selectedFile.getName(), selectedFile.getPrice()));
 				}
 			}

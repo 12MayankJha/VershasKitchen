@@ -14,7 +14,7 @@ public class DeleteTableController {
 	@Autowired
 	private ImageService service;
 	
-	@DeleteMapping("api/deleteAll")
+	@DeleteMapping("/deleteAll")
 	public ResponseEntity<HttpStatus> deleteAll() {
 		return service.deleteAll();
 	}
