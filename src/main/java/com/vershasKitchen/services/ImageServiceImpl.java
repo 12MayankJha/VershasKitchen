@@ -61,7 +61,7 @@ public class ImageServiceImpl implements ImageService {
 			List<ImageDataBase> imagefile = dbFileRepository.findByCategory(category);
 			List<ImageDataResponse> imageList = new  ArrayList<ImageDataResponse>();
 			for(ImageDataBase selectedFile: imagefile) {
-				String fileDownloadUri = "/downloadImage/" + selectedFile.getId();
+				String fileDownloadUri = "api/downloadImage/" + selectedFile.getId();
 				imageList.add(new ImageDataResponse(selectedFile.getId(), fileDownloadUri, selectedFile.getName(), selectedFile.getPrice()));
 			}
 			
@@ -80,7 +80,7 @@ public class ImageServiceImpl implements ImageService {
 			List<ImageDataResponse> imageList = new ArrayList<ImageDataResponse>();
 			for (ImageDataBase selectedFile : imagefile) {
 				if (selectedFile.getIsPopular()) {
-					String fileDownloadUri = "/downloadImage/" + selectedFile.getId();
+					String fileDownloadUri = "api/downloadImage/" + selectedFile.getId();
 					imageList.add(new ImageDataResponse(selectedFile.getId(), fileDownloadUri, selectedFile.getName(), selectedFile.getPrice()));
 				}
 			}
