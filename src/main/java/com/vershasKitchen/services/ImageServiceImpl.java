@@ -22,7 +22,7 @@ import com.vershasKitchen.exceptions.FileStorageException;
 import com.vershasKitchen.payload.ImageDataResponse;
 
 @Service
-public class DatabaseFileServiceImpl implements ImageService {
+public class ImageServiceImpl implements ImageService {
 
 	@Autowired
 	private DatabaseFileRepository dbFileRepository;
