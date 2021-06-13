@@ -61,8 +61,7 @@ public class DatabaseFileServiceImpl implements ImageService {
 			List<ImageDataBase> imagefile = dbFileRepository.findByCategory(category);
 			List<ImageDataResponse> imageList = new  ArrayList<ImageDataResponse>();
 			for(ImageDataBase selectedFile: imagefile) {
-				String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/downloadImage/")
-						.path(selectedFile.getId()).toUriString();
+				String fileDownloadUri = "/downloadImage/" + selectedFile.getId();
 				imageList.add(new ImageDataResponse(selectedFile.getId(), fileDownloadUri, selectedFile.getName(), selectedFile.getPrice()));
 			}
 			
@@ -81,8 +80,7 @@ public class DatabaseFileServiceImpl implements ImageService {
 			List<ImageDataResponse> imageList = new ArrayList<ImageDataResponse>();
 			for (ImageDataBase selectedFile : imagefile) {
 				if (selectedFile.getIsPopular()) {
-					String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/downloadImage/")
-							.path(selectedFile.getId()).toUriString();
+					String fileDownloadUri = "/downloadImage/" + selectedFile.getId();
 					imageList.add(new ImageDataResponse(selectedFile.getId(), fileDownloadUri, selectedFile.getName(), selectedFile.getPrice()));
 				}
 			}
