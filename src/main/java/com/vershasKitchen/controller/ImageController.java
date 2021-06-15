@@ -30,25 +30,24 @@ public class ImageController {
 	private ImageService imageService;
 
 	@PostMapping("/uploadImage")
-	public ImageUploadResponse uploadImage(@RequestParam("file") MultipartFile file,
+	public ImageUploadResponse uploadImage(@RequestParam("image") MultipartFile image,
 			@RequestParam("isPopular") Boolean isPopular,
 			@RequestParam("category") String category,
+			@RequestParam("subCategory") String subCategory,
 			@RequestParam("name") String name,
-			@RequestParam("price") String price
-			) {
+			@RequestParam("price") String price) {
 
-		ImageDataBase fileName = imageService.storeFile(file, isPopular, category, name, price);
+		ImageDataBase storedImage = imageService.storeImage(image, isPopular, category, subCategory, name, price);
 
-		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/downloadImage/")
-				.path(fileName.getId()).toUriString();
+		String imageDownloadUri = "/downloadImage/" + storedImage.getId();
 
-		return new ImageUploadResponse(fileName.getImageName(), fileDownloadUri, file.getContentType(), file.getSize(),
-				fileName.getId());
+		return new ImageUploadResponse(storedImage.getImageName(), imageDownloadUri, image.getContentType(),
+				image.getSize(), storedImage.getId());
 	}
 
 
 	@GetMapping("/downloadImage/{imageId}")
-	public ResponseEntity<Resource> downloadFile(@PathVariable String imageId, HttpServletRequest request) {
+	public ResponseEntity<Resource> downloadImage(@PathVariable String imageId, HttpServletRequest request) {
 		// Load file as Resource
 		ImageDataBase image = imageService.getImage(imageId);
 

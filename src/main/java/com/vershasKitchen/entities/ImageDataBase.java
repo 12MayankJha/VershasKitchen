@@ -19,6 +19,8 @@ public class ImageDataBase {
 	
 	private String category;
 	
+	private String subcategory;
+	
 	private String name;
 	
 	private String price;
@@ -32,13 +34,14 @@ public class ImageDataBase {
 	}
 
 
-	public ImageDataBase(String imageName, String imageType, Boolean isPopular, String category, byte[] imageData, String name,
+	public ImageDataBase(String imageName, String imageType, Boolean isPopular, String category, String subCategory, byte[] imageData, String name,
 			String price) {
 		super();
 		this.imageName = imageName;
 		this.imageType = imageType;
 		this.isPopular = isPopular;
 		this.category = category;
+		this.subcategory = subCategory;
 		this.imageData = imageData;
 		this.name = name;
 		this.price = price;
@@ -65,16 +68,16 @@ public class ImageDataBase {
 		this.id = id;
 	}
 
-	public void setImageName(String fileName) {
-		this.imageName = fileName;
+	public void setImageName(String imageName) {
+		this.imageName = imageName;
 	}
 
-	public void setImageType(String fileType) {
-		this.imageType = fileType;
+	public void setImageType(String imageType) {
+		this.imageType = imageType;
 	}
 
-	public void setImageData(byte[] data) {
-		this.imageData = data;
+	public void setImageData(byte[] imageData) {
+		this.imageData = imageData;
 	}
 
 
@@ -114,6 +117,16 @@ public class ImageDataBase {
 
 	public void setPrice(String price) {
 		this.price = price;
+	}
+
+
+	public String getSubCategory() {
+		return subcategory;
+	}
+
+
+	public void setSubCategory(String subCategory) {
+		this.subcategory = subCategory;
 	}
 
 }

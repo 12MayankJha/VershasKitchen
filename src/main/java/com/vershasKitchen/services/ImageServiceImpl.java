@@ -25,21 +25,21 @@ public class ImageServiceImpl implements ImageService {
 	private DatabaseFileRepository dbFileRepository;
 
 	@Override
-	public ImageDataBase storeFile(MultipartFile file, Boolean isPopular, String category, String name, String price) {
+	public ImageDataBase storeImage(MultipartFile image, Boolean isPopular, String category, String subCategory, String name, String price) {
 		// Normalize file name
-		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+		String imageName = StringUtils.cleanPath(image.getOriginalFilename());
 
 		try {
 			// Check if the file's name contains invalid characters
-			if (fileName.contains("..")) {
-				throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
+			if (imageName.contains("..")) {
+				throw new FileStorageException("Sorry! Filename contains invalid path sequence " + imageName);
 			}
 
-			ImageDataBase dbFile = new ImageDataBase(fileName, file.getContentType(), isPopular, category, file.getBytes(), name, price);
-			return dbFileRepository.save(dbFile);
+			ImageDataBase dbImage = new ImageDataBase(imageName, image.getContentType(), isPopular, category,subCategory, image.getBytes(), name, price);
+			return dbFileRepository.save(dbImage);
 			
 		} catch (IOException ex) {
-			throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
+			throw new FileStorageException("Could not store image " + imageName + ". Please try again!", ex);
 		}
 	}
 
@@ -50,22 +50,30 @@ public class ImageServiceImpl implements ImageService {
 	}
 	
 	@Override
-	public Map<String,List<ImageDataResponse>> getAllImageData() {
+	public Map<String,Map<String,List<ImageDataResponse>>> getAllImageData() {
 		
-		Map<String,List<ImageDataResponse>> imageMap = new HashMap<String, List<ImageDataResponse>>();
+		Map<String,List<ImageDataResponse>> subCategoryMap = new HashMap<String, List<ImageDataResponse>>();
+		Map<String,List<ImageDataResponse>> categoryMap = new HashMap<String, List<ImageDataResponse>>();
+		
+		ImageHelper.db = dbFileRepository.findAll();
+//		List<String> subCategories = dbFileRepository.findAllSubCategies();
+//		System.out.println(subCategories);
+		
+		
 		
 		for(String category: ImageHelper.CATEGORIES) {
-			List<ImageDataBase> imagefile = dbFileRepository.findByCategory(category);
+			List<ImageDataBase> imagefiles = dbFileRepository.findByCategory(category);
 			List<ImageDataResponse> imageList = new  ArrayList<ImageDataResponse>();
-			for(ImageDataBase selectedFile: imagefile) {
-				String fileDownloadUri = "/downloadImage/" + selectedFile.getId();
-				imageList.add(new ImageDataResponse(selectedFile.getId(), fileDownloadUri, selectedFile.getName(), selectedFile.getPrice()));
+			for(ImageDataBase selectedImage: imagefiles) {
+				String imageDownloadUri = "/downloadImage/" + selectedImage.getId();
+				imageList.add(new ImageDataResponse(selectedImage.getId(), imageDownloadUri, selectedImage.getName(), selectedImage.getPrice()));
 			}
 			
-			imageMap.put(category, imageList);
+			subCategoryMap.put(category, imageList);
+			
 		}
 		
-		return imageMap;
+		return subCategoryMap;
 	}
 
 	@Override
@@ -75,10 +83,10 @@ public class ImageServiceImpl implements ImageService {
 		for (String category : ImageHelper.CATEGORIES) {
 			List<ImageDataBase> imagefile = dbFileRepository.findByCategory(category);
 			List<ImageDataResponse> imageList = new ArrayList<ImageDataResponse>();
-			for (ImageDataBase selectedFile : imagefile) {
-				if (selectedFile.getIsPopular()) {
-					String fileDownloadUri = "/downloadImage/" + selectedFile.getId();
-					imageList.add(new ImageDataResponse(selectedFile.getId(), fileDownloadUri, selectedFile.getName(), selectedFile.getPrice()));
+			for (ImageDataBase selectedImage : imagefile) {
+				if (selectedImage.getIsPopular()) {
+					String imageDownloadUri = "/downloadImage/" + selectedImage.getId();
+					imageList.add(new ImageDataResponse(selectedImage.getId(), imageDownloadUri, selectedImage.getName(), selectedImage.getPrice()));
 				}
 			}
 

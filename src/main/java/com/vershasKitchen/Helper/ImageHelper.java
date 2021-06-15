@@ -1,5 +1,9 @@
 package com.vershasKitchen.Helper;
 
+import java.util.List;
+
+import com.vershasKitchen.entities.ImageDataBase;
+
 public class ImageHelper {
 	
 	public static final String CAKES = "cakes";
@@ -8,6 +12,8 @@ public class ImageHelper {
 	public static final String SNACKS = "snacks";
 	
 	public static final String[] CATEGORIES = {CAKES,COOKIES,MOCKTAILS,SNACKS};
+	
+	public static List<ImageDataBase> db;
 	
 	
 }

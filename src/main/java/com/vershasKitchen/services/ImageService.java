@@ -12,9 +12,9 @@ import com.vershasKitchen.payload.ImageDataResponse;
 
 public interface ImageService {
 
-	ImageDataBase getImage(String fileId);
+	ImageDataBase getImage(String imageId);
 
-	ImageDataBase storeFile(MultipartFile file, Boolean isPopular, String category, String name, String price);
+	ImageDataBase storeImage(MultipartFile image, Boolean isPopular, String category, String subCategory, String name, String price);
 	
 	Map<String, List<ImageDataResponse>> getAllImageData();
 
