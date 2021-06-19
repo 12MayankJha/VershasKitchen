@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "cashing.timeout",
+  "type": "java.lang.String",
+  "description": "This property is use to set timeout for caching"
+}]}

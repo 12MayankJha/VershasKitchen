@@ -2,6 +2,7 @@ package com.vershasKitchen.dao;
 
 import java.util.List;
 
+import javax.persistence.Cacheable;
 import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -6,13 +6,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.vershasKitchen.services.DataBaseService;
 import com.vershasKitchen.services.ImageService;
 
 @RestController
 public class DeleteTableController {
 	
 	@Autowired
-	private ImageService service;
+	private DataBaseService service;
 	
 	@DeleteMapping("/deleteAll")
 	public ResponseEntity<HttpStatus> deleteAll() {

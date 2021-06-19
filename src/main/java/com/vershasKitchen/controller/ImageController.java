@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import com.vershasKitchen.entities.ImageDataBase;
 import com.vershasKitchen.payload.ImageDataResponse;
 import com.vershasKitchen.payload.ImageUploadResponse;
@@ -28,7 +26,7 @@ public class ImageController {
 
 	@Autowired
 	private ImageService imageService;
-
+	
 	@PostMapping("/uploadImage")
 	public ImageUploadResponse uploadImage(@RequestParam("image") MultipartFile image,
 			@RequestParam("isPopular") Boolean isPopular,
@@ -57,8 +55,8 @@ public class ImageController {
 	}
 
 	@GetMapping("/getAllImageData")
-	public ResponseEntity<Map<String, List<ImageDataResponse>>> getAllImageData() {
-		Map<String, List<ImageDataResponse>> list = imageService.getAllImageData();
+	public  ResponseEntity<Map<String, Map<String, List<ImageDataResponse>>>> getAllImageData() {
+		Map<String, Map<String, List<ImageDataResponse>>> list = imageService.getAllImageData();
 		if (!list.isEmpty()) {
 			return ResponseEntity.ok(list);
 		} else {
@@ -67,8 +65,8 @@ public class ImageController {
 	}
 	
 	@GetMapping("/getAllPopularImageData")
-	public ResponseEntity<Map<String, List<ImageDataResponse>>> getAllPopularImageData() {
-		Map<String, List<ImageDataResponse>> list = imageService.getAllPopularImageData();
+	public ResponseEntity<Map<String, Map<String, List<ImageDataResponse>>>> getAllPopularImageData() {
+		Map<String, Map<String, List<ImageDataResponse>>> list = imageService.getAllPopularImageData();
 		if (!list.isEmpty()) {
 			return ResponseEntity.ok(list);
 		} else {
