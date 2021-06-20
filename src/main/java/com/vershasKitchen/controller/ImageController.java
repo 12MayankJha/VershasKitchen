@@ -1,9 +1,7 @@
 package com.vershasKitchen.controller;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.vershasKitchen.Helper.ImageHelper;
 import com.vershasKitchen.entities.ImageDataBase;
 import com.vershasKitchen.payload.ImageDataResponse;
 import com.vershasKitchen.payload.ImageUploadResponse;
