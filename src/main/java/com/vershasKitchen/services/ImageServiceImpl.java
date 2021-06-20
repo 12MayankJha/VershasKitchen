@@ -90,7 +90,7 @@ public class ImageServiceImpl implements ImageService {
 			Map<String, List<ImageDataResponse>> subCategoryMap = new HashMap<String, List<ImageDataResponse>>();
 			Set<String> subCategories = new HashSet<>();
 			for (ImageDataBase selectedImage : imagefiles) {
-				if (selectedImage.getIsPopular()) {
+				if (selectedImage.getSubCategory() != null) {
 					subCategories.add(selectedImage.getSubCategory());
 				}
 			}
