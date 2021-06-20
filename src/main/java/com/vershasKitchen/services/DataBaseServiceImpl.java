@@ -10,8 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import com.vershasKitchen.dao.DatabaseFileRepository;
-import com.vershasKitchen.entities.ImageDataBase;
-import com.vershasKitchen.exceptions.FileNotFoundException;
+import com.vershasKitchen.entities.ProductEntity;
 
 
 @Service
@@ -24,36 +23,27 @@ public class DataBaseServiceImpl implements DataBaseService {
 	private CacheManager cacheManager;
 	
 	@Override
-	public ImageDataBase save(ImageDataBase dbImage) {
+	public ProductEntity save(ProductEntity product) {
 		evictAllCaches();
-		return dbFileRepository.save(dbImage);
-	}
-
-	@Override
-	@Cacheable(cacheNames = "image", key = "#imageId")
-	public ImageDataBase findImageById(String imageId) {
-		return dbFileRepository.findById(imageId)
-				.orElseThrow(() -> new FileNotFoundException("File not found with id " + imageId));
+		return dbFileRepository.save(product);
 	}
 	
 	@Override
-	@CacheEvict(cacheNames = {"imageData", "image"})
+	@CacheEvict(cacheNames = {"product"})
 	public ResponseEntity<HttpStatus> deleteAll() {
 		dbFileRepository.deleteAll();
 		return new ResponseEntity<HttpStatus>(HttpStatus.OK);
 	}
 	
 	@Override
-	@Cacheable(cacheNames = "imageData", key = "#category")
-	public List<ImageDataBase> findByCategory(String category) {
-		System.out.println("fetching Book From DB");
+	@Cacheable(cacheNames = "product", key = "#category")
+	public List<ProductEntity> findByCategory(String category) {
 		return dbFileRepository.findByCategory(category);
 	}
 	
 	
 	@Scheduled(cron = "${cashing.timeout}")
 	public void evictAllcachesAtIntervals() {
-		System.out.println("inside schedular");
 	    evictAllCaches();
 	}
 

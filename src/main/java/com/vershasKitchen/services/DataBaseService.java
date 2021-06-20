@@ -4,16 +4,14 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import com.vershasKitchen.entities.ImageDataBase;
+import com.vershasKitchen.entities.ProductEntity;
 
 public interface DataBaseService {
 
-	ImageDataBase findImageById(String fileId);
-
 	ResponseEntity<HttpStatus> deleteAll();
 
-	List<ImageDataBase> findByCategory(String category);
+	List<ProductEntity> findByCategory(String category);
 
-	ImageDataBase save(ImageDataBase dbImage);
+	ProductEntity save(ProductEntity dbImage);
 
 }
