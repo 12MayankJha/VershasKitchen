@@ -10,7 +10,7 @@ public interface ProductService {
 
 	Map<String, Map<String, List<ProductDetails>>> getAllProducts();
 
-	Map<String, Map<String, List<ProductDetails>>> getAllPopularProducts();
+	Map<String, List<ProductDetails>> getAllPopularProducts();
 
 	ProductEntity storeProduct( String name, String price, String imagePath, Boolean isPopular, String category, String subCategory);
 

@@ -32,14 +32,14 @@ public class ProductServiceImpl implements ProductService {
 			List<ProductEntity> products = dbService.findByCategory(category);
 			Map<String, List<ProductDetails>> subCategoryMap = new HashMap<String, List<ProductDetails>>();
 			for (String subCategory : ProductHelper.CATEGORYMAP.get(category)) {
-				List<ProductDetails> imageList = new ArrayList<ProductDetails>();
+				List<ProductDetails> productList = new ArrayList<ProductDetails>();
 				for (ProductEntity product : products) {
 					if (product.getSubcategory().equalsIgnoreCase(subCategory)) {
-						imageList.add(new ProductDetails(product.getId(), product.getName(), product.getPrice(),
+						productList.add(new ProductDetails(product.getId(), product.getName(), product.getPrice(),
 								ProductHelper.getImageUrl(product.getImagePath())));
 					}
 				}
-				subCategoryMap.put(subCategory, imageList);
+				subCategoryMap.put(subCategory, productList);
 			}
 
 			categoryMap.put(category, subCategoryMap);
@@ -49,28 +49,20 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Map<String, Map<String, List<ProductDetails>>> getAllPopularProducts() {
-		Map<String, Map<String, List<ProductDetails>>> categoryMap = new HashMap<String, Map<String, List<ProductDetails>>>();
+	public Map<String, List<ProductDetails>> getAllPopularProducts() {
+		Map<String, List<ProductDetails>> categoryMap = new HashMap<String, List<ProductDetails>>();
 		for (String category : ProductHelper.CATEGORYMAP.keySet()) {
 			List<ProductEntity> products = dbService.findByCategory(category);
-			Map<String, List<ProductDetails>> subCategoryMap = new HashMap<String, List<ProductDetails>>();
-			for (String subCategory : ProductHelper.CATEGORYMAP.get(category)) {
-				List<ProductDetails> imageList = new ArrayList<ProductDetails>();
-				for (ProductEntity product : products) {
-					if (product.getSubcategory().equalsIgnoreCase(subCategory)) {
-						if (product.getIsPopular()) {
-							imageList.add(new ProductDetails(product.getId(), product.getName(), product.getPrice(),
-									ProductHelper.getImageUrl(product.getImagePath())));
-						}
-					}
+			List<ProductDetails> productList = new ArrayList<ProductDetails>();
+			for (ProductEntity product : products) {
+				if (product.getIsPopular()) {
+					productList.add(new ProductDetails(product.getId(), product.getName(), product.getPrice(),
+							ProductHelper.getImageUrl(product.getImagePath())));
 				}
-				subCategoryMap.put(subCategory, imageList);
 			}
-
-			categoryMap.put(category, subCategoryMap);
+			categoryMap.put(category, productList);
 		}
 
 		return categoryMap;
 	}
-
 }

@@ -51,8 +51,8 @@ public class ProductController {
 	}
 
 	@GetMapping("/getAllPopularProducts")
-	public ResponseEntity<Map<String, Map<String, List<ProductDetails>>>> getAllPopularProducts() {
-		Map<String, Map<String, List<ProductDetails>>> list = productService.getAllPopularProducts();
+	public ResponseEntity<Map<String, List<ProductDetails>>> getAllPopularProducts() {
+		Map<String, List<ProductDetails>> list = productService.getAllPopularProducts();
 		if (!list.isEmpty()) {
 			return ResponseEntity.ok(list);
 		} else {
