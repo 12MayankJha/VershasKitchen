@@ -58,7 +58,9 @@ public class ImageServiceImpl implements ImageService {
 			Map<String, List<ImageDataResponse>> subCategoryMap = new HashMap<String, List<ImageDataResponse>>();
 			Set<String> subCategories = new HashSet<>();
 			for (ImageDataBase selectedImage : imagefiles) {
-				subCategories.add(selectedImage.getSubCategory());
+				if (selectedImage.getSubCategory() != null) {
+					subCategories.add(selectedImage.getSubCategory());
+				}
 			}
 			for (String subCategory : subCategories) {
 				List<ImageDataResponse> imageList = new ArrayList<ImageDataResponse>();
