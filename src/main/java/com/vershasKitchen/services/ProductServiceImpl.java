@@ -2,10 +2,8 @@ package com.vershasKitchen.services;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.vershasKitchen.Helper.ProductHelper;
@@ -19,10 +17,8 @@ public class ProductServiceImpl implements ProductService {
 	private DataBaseService dbService;
 
 	@Override
-	public ProductEntity storeProduct(String name, String price, String imagePath, Boolean isPopular, String category,
-			String subCategory) {
-		ProductEntity dbImage = new ProductEntity(name, price, imagePath, isPopular, category, subCategory);
-		return dbService.save(dbImage);
+	public ProductEntity storeProduct(ProductEntity product) {
+		return dbService.save(product);
 	}
 
 	@Override
@@ -65,4 +61,16 @@ public class ProductServiceImpl implements ProductService {
 
 		return categoryMap;
 	}
+
+	@Override
+	public ProductEntity updateProduct(ProductEntity product) {
+		return dbService.save(product);
+	}
+
+	@Override
+	public void deleteProduct(String productId) {
+	dbService.deleteById(productId);
+	}
+
+
 }

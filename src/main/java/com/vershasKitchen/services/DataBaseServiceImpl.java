@@ -1,6 +1,7 @@
 package com.vershasKitchen.services;
 
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
@@ -51,6 +52,19 @@ public class DataBaseServiceImpl implements DataBaseService {
 		cacheManager.getCacheNames().stream()
 	      .forEach(cacheName -> cacheManager.getCache(cacheName).clear());
 	}
+	
+	@Override
+	@Cacheable(cacheNames = "product", key = "#id")
+	public Optional<ProductEntity> findById(String id) {
+		return dbFileRepository.findById(id);
+	}
+	
+	@Override
+	@CacheEvict(cacheNames = {"product"})
+	public void deleteById(String id) {
+		dbFileRepository.deleteById(id);
+	}
+	
 	
 
 }
