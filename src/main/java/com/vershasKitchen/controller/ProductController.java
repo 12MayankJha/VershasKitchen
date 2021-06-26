@@ -46,6 +46,16 @@ public class ProductController {
 		return new ProductUploadResponse(storedImage.getId(), storedImage.getName(), storedImage.getImagePath());
 	}
 	
+	@PutMapping("/uploadProducts")
+	public List<ProductUploadResponse> updateProducts(@RequestBody List<ProductEntity> products) {
+		List<ProductUploadResponse> list = new ArrayList<ProductUploadResponse>();
+		for (ProductEntity product : products) {
+			ProductEntity storedImage = productService.updateProduct(product);
+			list.add(new ProductUploadResponse(storedImage.getId(), storedImage.getName(), storedImage.getImagePath()));
+		}
+		return list;
+	}
+	
 
 	@GetMapping("/getAllProducts")
 	public ResponseEntity<Map<String, Map<String, List<ProductDetails>>>> getAllProducts() {
