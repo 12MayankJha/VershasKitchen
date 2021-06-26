@@ -43,6 +43,7 @@ public class ProductHelper {
 		CATEGORYMAP.put(CAKES, cakesList);
 		CATEGORYMAP.put(SNACKSANDAPPETIZERS, snacksAndAppetizers);
 		CATEGORYMAP.put(CAKES, cakesList);
+		CATEGORYMAP.put(DESERTS, deserts);
 		CATEGORYMAP.put(OTHERS, others);
 		
 	}
