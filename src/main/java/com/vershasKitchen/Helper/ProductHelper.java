@@ -39,6 +39,7 @@ public class ProductHelper {
 		deserts.add("Bakingo");
 		
 		List<String> others = new ArrayList<String>();
+		others.add("None");
 		
 		CATEGORYMAP.put(CAKES, cakesList);
 		CATEGORYMAP.put(SNACKSANDAPPETIZERS, snacksAndAppetizers);
