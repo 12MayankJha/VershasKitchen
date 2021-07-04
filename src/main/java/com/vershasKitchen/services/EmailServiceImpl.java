@@ -30,7 +30,7 @@ public class EmailServiceImpl implements EmailService {
 			helper.setSubject(ClientHelper.VERSHASKITCHEN_EMAIL_SUBJECT);
 
 			File resource = new ClassPathResource("ClientDetails.html").getFile();
-			String clientDetailsHtml = new String(Files.readString(resource.toPath()));
+			String clientDetailsHtml = new String(Files.readAllBytes(resource.toPath()));
 
 			clientDetailsHtml = clientDetailsHtml
 					.replace("{name}", details.getName())
