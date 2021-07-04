@@ -1,5 +1,6 @@
 package com.vershasKitchen.services;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,9 @@ public class DataBaseServiceImpl implements DataBaseService {
 	@Override
 	@Cacheable(cacheNames = "product", key = "#category")
 	public List<ProductEntity> findByCategory(String category) {
-		return dbFileRepository.findByCategory(category);
+		List<ProductEntity> productList = dbFileRepository.findByCategory(category);
+		Collections.shuffle(productList);
+		return productList;
 	}
 	
 	
