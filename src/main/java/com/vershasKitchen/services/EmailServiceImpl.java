@@ -29,19 +29,19 @@ public class EmailServiceImpl implements EmailService {
 			helper.setTo(ClientHelper.VERSHASKITCHEN_EMAIL_ID);
 			helper.setSubject(ClientHelper.VERSHASKITCHEN_EMAIL_SUBJECT);
 
-			File resource = new ClassPathResource("ClientDetails.html").getFile();
-			String clientDetailsHtml = new String(Files.readAllBytes(resource.toPath()));
+//			File resource = new ClassPathResource("ClientDetails.html").getFile();
+//			String clientDetailsHtml = new String(Files.readAllBytes(resource.toPath()));
+//
+//			clientDetailsHtml = clientDetailsHtml
+//					.replace("{name}", details.getName())
+//					.replace("{phonenumber}", details.getPhoneNumber())
+//					.replace("{email}", details.getEmail())
+//					.replace("{message}", details.getMessage());
 
-			clientDetailsHtml = clientDetailsHtml
-					.replace("{name}", details.getName())
-					.replace("{phonenumber}", details.getPhoneNumber())
-					.replace("{email}", details.getEmail())
-					.replace("{message}", details.getMessage());
-
-			helper.setText(clientDetailsHtml, true);
+			helper.setText("Testimg", true);
 			emailSender.send(message);
 
-		} catch (IOException | MessagingException e) {
+		} catch ( MessagingException e) {
 			e.printStackTrace();
 		}
 
