@@ -77,6 +77,16 @@ public class ProductController {
 		}
 	}
 	
+	@GetMapping("/getProductByCategory")
+	public ResponseEntity<Map<String, List<ProductDetails>>> getProductByCategory() {
+		Map<String, List<ProductDetails>> list = productService.getProductByCategory();
+		if (!list.isEmpty()) {
+			return ResponseEntity.ok(list);
+		} else {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 	@DeleteMapping("/deleteProduct/{productId}")
 	public String deleteProduct(@PathVariable String productId) {
 		try {

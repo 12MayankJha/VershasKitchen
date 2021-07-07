@@ -61,6 +61,22 @@ public class ProductServiceImpl implements ProductService {
 
 		return categoryMap;
 	}
+	
+	@Override
+	public Map<String, List<ProductDetails>> getProductByCategory() {
+		Map<String, List<ProductDetails>> categoryMap = new HashMap<String, List<ProductDetails>>();
+		for (String category : ProductHelper.CATEGORYMAP.keySet()) {
+			List<ProductEntity> products = dbService.findByCategory(category);
+			List<ProductDetails> productList = new ArrayList<ProductDetails>();
+			for (ProductEntity product : products) {
+				productList.add(new ProductDetails(product.getId(), product.getName(), product.getPrice(),
+						ProductHelper.getImageUrl(product.getImagePath())));
+			}
+			categoryMap.put(category, productList);
+		}
+
+		return categoryMap;
+	}
 
 	@Override
 	public ProductEntity updateProduct(ProductEntity product) {
@@ -71,6 +87,7 @@ public class ProductServiceImpl implements ProductService {
 	public void deleteProduct(String productId) {
 		dbService.deleteById(productId);
 	}
+
 
 
 }
